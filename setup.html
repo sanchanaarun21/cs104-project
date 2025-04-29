@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Scorekeeper - Setup</title>
+    <link rel="stylesheet" href="setup.css">
+</head>
+<body>
+    <div class="setup-container">
+        <h1>Match Setup</h1>
+        <form id="matchSetupForm">
+            <div class="form-group">
+                <label for="team1Name">Team 1 Name:</label>
+                <input type="text" id="team1Name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="team2Name">Team 2 Name:</label>
+                <input type="text" id="team2Name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="tossWinner">Toss Winner:</label>
+                <select id="tossWinner" required>
+                    <option value="">Select Team</option>
+                    <option value="team1">Team 1</option>
+                    <option value="team2">Team 2</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="tossDecision">Toss Decision:</label>
+                <select id="tossDecision" required>
+                    <option value="">Select Decision</option>
+                    <option value="bat">Bat</option>
+                    <option value="bowl">Bowl</option>
+                </select>
+            </div>
+            
+            <div class="note">
+                <p>NOTE: The match will be a 2-over game.</p>
+            </div>
+            
+            <button type="submit" id="startMatchBtn">Start Match</button>
+        </form>
+    </div>
+
+    <script src="score.js"></script>
+</body>
+</html>

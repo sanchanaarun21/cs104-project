@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Scorekeeper - Live</title>
+    <link rel="stylesheet" href="live.css">
+    <link rel="stylesheet" href="commentary.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="scoreDisplay">Live Cricket Score</h1>
+        </header>
+
+        <main>
+            <section class="score-summary">
+                <div id="inningsDisplay"></div>
+            </section>
+
+            <section class="batters-section">
+                <h2>Batting</h2>
+                <table id="battersTable">
+                    <thead>
+                        <tr>
+                            <th>Batter</th>
+                            <th>R</th>
+                            <th>B</th>
+                            <th>4s</th>
+                            <th>6s</th>
+                            <th>SR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="bowling-section">
+                <h2>Bowling</h2>
+                <table id="bowlerTable">
+                    <thead>
+                        <tr>
+                            <th>Bowler</th>
+                            <th>O</th>
+                            <th>M</th>
+                            <th>R</th>
+                            <th>W</th>
+                            <th>Econ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="scoring-buttons">
+                <h2>Scoring</h2>
+                <div class="buttons-grid">
+                    <button id="btn0">0</button>
+                    <button id="btn1">1</button>
+                    <button id="btn2">2</button>
+                    <button id="btn3">3</button>
+                    <button id="btn4">4</button>
+                    <button id="btn6">6</button>
+                    <button id="btnWicket">Wicket</button>
+                    <button id="btnWide">Wide</button>
+                    <button id="btnNoBall">No Ball</button>
+                </div>
+            </section>
+
+            <section class="match-info">
+                <div id="crrRrrDisplay"></div>
+            </section>
+        </main>
+
+        <footer>
+            <button id="btnScorecard">View Scorecard</button>
+        </footer>
+    </div>
+
+    <div id="inputModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modalTitle">Enter Details</h3>
+            <div id="modalBody">
+               
+            </div>
+            <button id="modalSubmit">Submit</button>
+        </div>
+    </div>
+
+    <script src="score.js"></script>
+
+    <section class="commentary-section">
+        <h3>Live Commentary</h3>
+        <ul id="commentaryFeed"></ul>
+    </section>
+
+
+</body>
+</html>

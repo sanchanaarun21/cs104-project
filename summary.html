@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Summary - Cricket Scorekeeper</title>
+    <link rel="stylesheet" href="summary.css">
+    <link rel="stylesheet" href="base_styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Match Summary</h1>
+        
+        <div id="matchResult" class="result-container">
+        </div>
+        
+        <div class="scorecard-container">
+            <div class="innings-summary">
+                <h3>First Innings</h3>
+                <div id="firstInningsSummary"></div>
+            </div>
+            
+            <div class="innings-summary">
+                <h3>Second Innings</h3>
+                <div id="secondInningsSummary"></div>
+            </div>
+        </div>
+        
+        <button id="resetMatch" class="btn-reset">Reset Match</button>
+    </div>
+
+    <script src="score.js"></script>
+</body>
+</html>

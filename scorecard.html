@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Scorekeeper - Scorecard</title>
+    <link rel="stylesheet" href="scorecard.css">
+    <link rel="stylesheet" href="commentary.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Match Scorecard</h1>
+            <button id="btnBackToLive">Back to Live Scoring</button>
+        </header>
+
+        <main>
+            <section class="match-summary">
+                <h2>Match Summary</h2>
+                <div id="matchInfo"></div>
+            </section>
+
+            <section class="innings-section">
+                <div class="innings-tabs">
+                    <button class="tab-button active" data-innings="1">1st Innings</button>
+                    <button class="tab-button" data-innings="2">2nd Innings</button>
+                </div>
+
+                <div class="innings-content">
+                    <div id="innings1" class="tab-content active">
+                        <h3 id="innings1Title"></h3>
+                        <div class="scorecard-section">
+                            <h4>Batting</h4>
+                            <table id="batting1">
+                                <thead>
+                                    <tr>
+                                        <th>Batter</th>
+                                        <th>R</th>
+                                        <th>B</th>
+                                        <th>4s</th>
+                                        <th>6s</th>
+                                        <th>SR</th>
+                                        <th>Out</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="scorecard-section">
+                            <h4>Bowling</h4>
+                            <table id="bowling1">
+                                <thead>
+                                    <tr>
+                                        <th>Bowler</th>
+                                        <th>O</th>
+                                        <th>M</th>
+                                        <th>R</th>
+                                        <th>W</th>
+                                        <th>Econ</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="innings2" class="tab-content">
+                        <h3 id="innings2Title"></h3>
+                        <div class="scorecard-section">
+                            <h4>Batting</h4>
+                            <table id="batting2">
+                                <thead>
+                                    <tr>
+                                        <th>Batter</th>
+                                        <th>R</th>
+                                        <th>B</th>
+                                        <th>4s</th>
+                                        <th>6s</th>
+                                        <th>SR</th>
+                                        <th>Out</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="scorecard-section">
+                            <h4>Bowling</h4>
+                            <table id="bowling2">
+                                <thead>
+                                    <tr>
+                                        <th>Bowler</th>
+                                        <th>O</th>
+                                        <th>M</th>
+                                        <th>R</th>
+                                        <th>W</th>
+                                        <th>Econ</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="score.js"></script>
+
+
+
+</body>
+</html>
