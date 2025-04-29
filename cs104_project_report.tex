@@ -1,0 +1,207 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\geometry{a4paper, margin=1in}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{CS104 Project Report: Cricket Scorekeeper Web Application}
+\author{Sanchana (22B1034)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+This report documents the development of a comprehensive cricket scorekeeper web application built using HTML5, CSS3, and JavaScript (ES6). The application provides real-time match tracking with automatic statistics calculation and result determination. 
+
+\section*{Project Overview}
+The application features a four-page workflow with the following components:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Setup Page}: Initial configuration with team details, toss results, and match format
+    \item \textbf{Live Scoring Page}: Interactive interface for real-time match tracking with commentary
+    \item \textbf{Scorecard Page}: Detailed statistical breakdown with innings-wise data
+    \item \textbf{Summary Page}: Final match result presentation with key metrics
+\end{itemize}
+
+\section*{Technical Implementation}
+
+\subsection*{Core Architecture}
+The application follows a client-side MVC pattern with:
+\begin{itemize}
+    \item \textbf{Model}: Match state stored in localStorage
+    \item \textbf{View}: HTML/CSS presentation layer
+    \item \textbf{Controller}: JavaScript event handlers and business logic
+\end{itemize}
+
+\subsection*{State Management}
+The match state object maintains all critical match information:
+
+\begin{lstlisting}[language=JavaScript]
+const matchDetails = {
+    team1Name: '',          // Original team names
+    team2Name: '',
+    firstInningsTeam: '',   // Team batting first
+    secondInningsTeam: '',  // Team batting second
+    battingTeam: '',        // Current batting team
+    bowlingTeam: '',        // Current bowling team
+    tossWinner: '',         // Team that won toss
+    tossDecision: '',       // 'bat' or 'field'
+    overs: 2,               // Match length
+    currentInnings: 1,      // 1 or 2
+    innings1: {             // First innings data
+        runs: 0,
+        wickets: 0,
+        balls: 0,
+        extras: 0,
+        batsmen: [],        // Array of batter objects
+        bowlers: [],        // Array of bowler objects
+        commentary: []      // Custom commentary feature
+    },
+    innings2: { /* ... */ } // Second innings data
+};
+\end{lstlisting}
+
+\section*{Key Features}
+
+\subsection*{Innings Management}
+The application handles innings transitions through:
+
+\begin{lstlisting}[language=JavaScript]
+function endInnings() {
+    if (isFirstInnings) {
+        // Track batting order
+        matchDetails.firstInningsTeam = matchDetails.battingTeam;
+        matchDetails.secondInningsTeam = matchDetails.bowlingTeam;
+        
+        // Swap teams for second innings
+        matchDetails.battingTeam = matchDetails.secondInningsTeam;
+        matchDetails.bowlingTeam = matchDetails.firstInningsTeam;
+        
+        // Update state
+        isFirstInnings = false;
+        matchDetails.currentInnings = 2;
+    }
+    // ... rest of function
+}
+\end{lstlisting}
+
+\subsection*{Real-time Scoring}
+The scoring system features:
+\begin{itemize}
+    \item Run recording (0-6)
+    \item Wicket tracking
+    \item Extra management (wides, no-balls)
+    \item Automatic strike rotation
+    \item Over completion detection
+\end{itemize}
+
+\subsection*{Customization: Commentary System}
+As a special customization, I implemented a real-time commentary feature that:
+\begin{itemize}
+    \item Generates context-aware messages for each event
+    \item Stores commentary with timestamp and score context
+    \item Displays in a scrollable feed with latest events first
+\end{itemize}
+
+\begin{lstlisting}[language=JavaScript]
+function addCommentary(message) {
+    const innings = isFirstInnings ? 'innings1' : 'innings2';
+    const over = Math.floor(matchDetails[innings].balls / 6);
+    const ball = (matchDetails[innings].balls % 6) + 1;
+    
+    matchDetails[innings].commentary.unshift({
+        displayOver: over,
+        displayBall: ball,
+        message: message,
+        timestamp: new Date().toLocaleTimeString(),
+        score: `${matchDetails[innings].runs}/${matchDetails[innings].wickets}`
+    });
+    updateCommentaryUI();
+}
+\end{lstlisting}
+
+\section*{Data Flow}
+The application manages data through:
+
+\subsection*{Initialization}
+\begin{enumerate}
+    \item User inputs match details on setup page
+    \item System initializes match state object
+    \item Data persists to localStorage
+\end{enumerate}
+
+\subsection*{Live Updates}
+\begin{enumerate}
+    \item User records match events via scoring buttons
+    \item System updates match state
+    \item UI refreshes to reflect changes
+    \item Commentary generated for significant events
+\end{enumerate}
+
+\subsection*{Results Calculation}
+The summary page automatically determines the winner:
+
+\begin{lstlisting}[language=JavaScript]
+if (matchDetails.innings2.runs >= target) {
+    // Chasing team won
+    resultText = `${secondBattingTeam} wins by ${10-wicketsLost} wickets`;
+} else {
+    // Defending team won
+    resultText = `${firstBattingTeam} wins by ${target-runsScored-1} runs`;
+}
+\end{lstlisting}
+
+
+
+\section*{Complete File Structure}
+\begin{verbatim}
+cricket-scorekeeper/
+├── setup.html        # Match setup page
+├── setup.css         # Setup page styles
+├── live.html         # Live scoring page
+├── live.css          # Live page styles
+├── scorecard.html    # Scorecard page
+├── scorecard.css     # Scorecard styles
+├── summary.html      # Summary page
+├── summary.css       # Summary styles
+├── commentary.css    # Commentary section styles (customization)
+└── score.js          # Core application logic
+
+\end{verbatim}
+
+\end{document}
